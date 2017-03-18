@@ -33,8 +33,7 @@ There are several challenges:
     measurement if it's above average, and `1` if it's below average.
 
     TODO: This has significant drawbacks. For example, it's very difficult to
-    recognize the words `00000000` and `11111111`. Maybe use the average from
-    `SYNC` for thresholding the data?
+    recognize the words `00000000` and `11111111`.
 
 ## Running it
 
