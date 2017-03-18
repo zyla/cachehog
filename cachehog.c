@@ -24,6 +24,15 @@ void do_receive() {
   }
 }
 
+// Record mode main loop
+void do_record(int nbits) {
+  int i;
+  for(i = 0; i < nbits; i++) {
+    int value = measure(1);
+    printf("%d\n", value);
+  }
+}
+
 int main(int argc, char **argv) {
   init_cachehog();
 
@@ -31,8 +40,11 @@ int main(int argc, char **argv) {
     do_transmit();
   } else if(argc >= 2 && !strcmp(argv[1], "receive")) {
     do_receive();
+  } else if(argc >= 3 && !strcmp(argv[1], "record")) {
+    int nbits = atoi(argv[2]);
+    do_record(nbits);
   } else {
-    fprintf(stderr, "Usage: %s ( transmit | receive )\n", argv[0]);
+    fprintf(stderr, "Usage: %s ( transmit | receive | record <nbits> )\n", argv[0]);
     return 1;
   }
 

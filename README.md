@@ -107,6 +107,31 @@ transmission, error bit count will be higher than you might expect.
 NOTE2: unlike `./cachehog` testbench uses POSIX functions so will probably not
 work on Windows (not tested!).
 
+## Signal visualization
+
+Sometimes it's useful to see the "signal" received by cachehog. To do that:
+
+1. Run some transmission in the background.
+
+2. Run record mode:
+
+```
+./cachehog record 320 > /tmp/samples.txt
+```
+
+The number provided is the number of samples to measure.
+Raw sample values are output to stdout.
+
+3. `visualize.py` can be used to view the result.
+
+_(requires matplotlib)_
+
+```
+./visualize.py < /tmp/samples.txt
+```
+
+![Example output from visualize.py](example_figure.png)
+
 ## Debugging
 
 There are some `printf`s hidden behind the `DEBUG` flag. Look at the source.
