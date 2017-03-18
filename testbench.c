@@ -7,7 +7,7 @@
 #include <signal.h>
 #include "cachehog_lib.h"
 
-uint8_t* message;
+const uint8_t* message;
 int message_size;
 uint8_t* recv;
 int recc;
@@ -52,6 +52,28 @@ int calc_error_count() {
   return error_count;
 }
 
+const char* byte_to_binary(int x) {
+  static char b[9];
+  b[0] = '\0';
+
+  for(int i = 0; i < 8; i++) {
+    b[i] = (x & (128 >> i)) ? '1' : '0';
+  }
+
+  return b;
+}
+void show_error_bytes() {
+  for(int i = 0; i < message_size; i++) {
+    uint8_t diff = message[i] ^ recv[i];
+    if(diff != 0) {
+      printf("\n    %s\n", byte_to_binary(message[i]));
+      printf("    %s\n", byte_to_binary(recv[i]));
+      printf("    --------\n");
+      printf("xor %s  %d\n", byte_to_binary(diff), __builtin_popcount(diff));
+    }
+  }
+}
+
 void after_receiving() {
   recv[message_size+1] = 0; // additional null-byte at the end for safety
 
@@ -62,6 +84,7 @@ void after_receiving() {
   printf("Lost %d bytes\n", message_size - recc);
   printf("ORG: %s\n", message);
   printf("REC: %s\n", recv);
+  show_error_bytes();
   printf("Total error bits: %d, bit error rate: %f\n", error_count, ber);
 }
 
