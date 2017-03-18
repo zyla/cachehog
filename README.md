@@ -81,6 +81,33 @@ Not bad.
 Note: Tested on my machine (i7-4710HQ), probably won't work well or at all on
 others. If you experience issues, try randomly tweaking some parameters.
 
+## Testbench
+
+Compile with `make testbench`.
+
+Run as:
+
+    ./testbench [message]
+
+If you don't specify a message, default one will be used.
+
+Possible output:
+
+    $ ./testbench
+    Message size: 28
+    Estimated running time: 22 sec
+    Received 28 bytes (224 bits)
+    Lost 0 bytes
+    ORG: Lorem ipsum dolor sit amet.
+    REC: Lorm ipsum dolorsit amet.
+    Total error bits: 10, bit error rate: 0.044643
+
+NOTE: testbench does not run any diffing algorithm so if any of byte is lost in
+transmission, error bit count will be higher than you might expect.
+
+NOTE2: unlike `./cachehog` testbench uses POSIX functions so will probably not
+work on Windows (not tested!).
+
 ## Debugging
 
 There are some `printf`s hidden behind the `DEBUG` flag. Look at the source.
