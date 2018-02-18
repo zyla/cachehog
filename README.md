@@ -1,5 +1,7 @@
 # CacheHog - IPC via cache timing
 
+NOTE: This is the most naive implementation of this idea. For stuff that _really_ works (and has a nice paper about it), see [Cache Based Jamming Agreement](https://github.com/IAIK/CJAG).
+
 Randomly accessing a big chunk memory causes a lot of main memory accesses due
 to limited size of CPU caches. When two processes to that at the same time, a
 noticeable slowdown can be observed.
